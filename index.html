@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lagos Storey | Food • Space • Shisha | Lekki Phase I</title>
+    <meta name="description" content="Lekki's premier destination for gourmet dining, premium shisha, and signature cocktails. Experience the Lagos Storey vibe.">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-hover: #f1c40f;
+            --black: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --light-grey: #f4f4f4;
+            --text-muted: #a0a0a0;
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Base Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--black); 
+            color: var(--white); 
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .premium-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- UI Components --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { 
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 32px; border-radius: 4px; font-weight: 600; 
+            cursor: pointer; border: none; font-size: 0.9rem; letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .btn-gold { background: var(--gold); color: var(--black); }
+        .btn-gold:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); }
+        
+        .btn-outline { border: 1px solid var(--gold); color: var(--gold); background: transparent; }
+        .btn-outline:hover { background: var(--gold); color: var(--black); }
+
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: clamp(2rem, 5vw, 3rem); color: var(--gold); }
+        .section-title p { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* --- STICKY MOBILE NAV --- */
+        .mobile-action-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            padding: 10px 5px; border-top: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 1000; backdrop-filter: blur(10px);
+        }
+        .action-item { display: flex; flex-direction: column; align-items: center; font-size: 0.65rem; color: var(--text-muted); }
+        .action-item i { font-size: 1.4rem; color: var(--gold); margin-bottom: 2px; }
+        .action-item:active { color: var(--gold); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1550966841-3ee7adac1af8?q=80&w=2070&auto=format&fit=crop'); /* Placeholder Ambiance */
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; color: var(--light-grey); margin-bottom: 35px; max-width: 700px; margin-inline: auto; }
+        
+        .trust-badges { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+        .badge { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.3); padding: 5px 15px; border-radius: 50px; background: rgba(0,0,0,0.3); }
+
+        /* --- MENU SECTION --- */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .menu-card { background: var(--dark-grey); border-radius: 12px; overflow: hidden; border: 1px solid #333; transition: var(--transition); }
+        .menu-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .menu-img { width: 100%; height: 250px; object-fit: cover; }
+        .menu-info { padding: 25px; }
+        .menu-info h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--gold); }
+        .menu-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+
+        /* --- RESERVATION FORM --- */
+        .booking-container { background: var(--dark-grey); padding: 50px; border-radius: 15px; border: 1px solid var(--gold); position: relative; overflow: hidden; }
+        .booking-container::before { content: "LIMITED SEATS"; position: absolute; top: 20px; right: -35px; background: #e74c3c; color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.7rem; font-weight: bold; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: white; border-radius: 4px; outline: none; }
+        .form-control:focus { border-color: var(--gold); }
+
+        /* --- EXIT POPUP --- */
+        #exit-popup {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
+            background: var(--dark-grey); padding: 40px; z-index: 2000;
+            visibility: hidden; opacity: 0; transition: var(--transition);
+            text-align: center; border: 2px solid var(--gold); border-radius: 20px; width: 90%; max-width: 450px;
+        }
+        #exit-popup.active { visibility: visible; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1999; display: none; }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0 120px; border-top: 1px solid #222; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .payment-icons { font-size: 2rem; display: flex; gap: 15px; margin-top: 20px; color: var(--text-muted); }
+
+        /* Desktop specific Adjustments */
+        @media (min-width: 1024px) {
+            .mobile-action-bar { top: 0; bottom: auto; height: 80px; padding: 0 100px; display: flex; justify-content: flex-end; gap: 30px; }
+            .action-item { flex-direction: row; gap: 10px; font-size: 0.9rem; }
+            .hero-content h1 { width: 80%; margin-inline: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MOBILE ACTION BAR (STAYS BOTTOM ON MOBILE / TOP ON DESKTOP) -->
+    <nav class="mobile-action-bar">
+        <a href="tel:09036499010" class="action-item"><i class="ri-phone-fill"></i>Call</a>
+        <a href="https://wa.me/2349036499010?text=I'd%20like%20to%20book%20a%20table%20at%20Lagos%20Storey" target="_blank" class="action-item"><i class="ri-whatsapp-fill"></i>WhatsApp</a>
+        <a href="https://maps.app.goo.gl/YourGoogleMapsLink" target="_blank" class="action-item"><i class="ri-map-pin-2-fill"></i>Directions</a>
+        <a href="#reserve" class="action-item"><i class="ri-calendar-event-fill"></i>Book Table</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="premium-font">Lekki’s Ultimate Destination for Food, Drinks & Shisha</h1>
+            <p>Experience great food, premium space, and the finest shisha in the heart of Lagos. From intimate dates to group celebrations.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="#reserve" class="btn btn-gold">Reserve a Table</a>
+                <a href="https://wa.me/2349036499010" class="btn btn-outline">Chat on WhatsApp</a>
+            </div>
+            <div class="trust-badges">
+                <span class="badge"><i class="ri-wifi-line"></i> Free Wi-Fi</span>
+                <span class="badge"><i class="ri-windy-line"></i> Outdoor Terrace</span>
+                <span class="badge"><i class="ri-parent-line"></i> Family Friendly</span>
+                <span class="badge"><i class="ri-car-fill"></i> Plenty of Parking</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU HIGHLIGHTS (Visual Grids) -->
+    <section class="container" style="padding: 100px 20px;">
+        <div class="section-title">
+            <h2>The Lagos Storey Menu</h2>
+            <p>Carefully curated flavors to satisfy every craving</p>
+        </div>
+        <div class="menu-grid">
+            <!-- Shisha -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1516053351133-c8b41724d07b?auto=format&fit=crop&w=600&q=80" alt="Premium Shisha" class="menu-img">
+                <div class="menu-info">
+                    <h3>Great Shisha</h3>
+                    <p>Exclusive blends and smooth delivery. The best in Lekki Phase I.</p>
+                    <a href="#reserve" class="btn btn-outline" style="width:100%">Reserve Session</a>
+                </div>
+            </div>
+            <!-- Cocktails -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80" alt="Signature Cocktails" class="menu-img">
+                <div class="menu-info">
+                    <h3>Signature Cocktails</h3>
+                    <p>Expertly mixed drinks, premium spirits, and happy hour vibes.</p>
+                    <a href="#reserve" class="btn btn-outline" style="width:100%">View Bar Menu</a>
+                </div>
+            </div>
+            <!-- Dining -->
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Main Course" class="menu-img">
+                <div class="menu-info">
+                    <h3>Gourmet Dining</h3>
+                    <p>From local favorites to international platters and vegan options.</p>
+                    <a href="#reserve" class="btn btn-outline" style="width:100%">Book Table</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF / ATMOSPHERE -->
+    <section style="background: #111; padding: 100px 0;">
+        <div class="container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:50px; align-items: center;">
+            <div>
+                <h2 class="premium-font" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 20px;">Trendy, Upmarket & Cozy</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Whether it's a romantic date night, a business lunch, or late-night shisha with friends, Lagos Storey offers the perfect backdrop. Loved by locals, tourists, and university students alike.</p>
+                <div style="display: flex; gap: 20px;">
+                    <div>
+                        <h3 style="color: var(--gold);">4.8/5</h3>
+                        <p style="font-size: 0.8rem;">Google Reviews</p>
+                    </div>
+                    <div style="border-left: 1px solid #333; padding-left: 20px;">
+                        <h3 style="color: var(--gold);">100%</h3>
+                        <p style="font-size: 0.8rem;">Vibe Guaranteed</p>
+                    </div>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=400&q=80" style="width:100%; border-radius: 8px;" alt="Interior">
+                <img src="https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?auto=format&fit=crop&w=400&q=80" style="width:100%; border-radius: 8px; margin-top: 20px;" alt="Cocktails">
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGH-CONVERTING RESERVATION SECTION -->
+    <section id="reserve" style="padding: 100px 0;">
+        <div class="container">
+            <div class="booking-container">
+                <div class="section-title">
+                    <h2>Secure Your Experience</h2>
+                    <p>Almost fully booked for tonight. Reserve your table now.</p>
+                </div>
+                <form id="reservationForm">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="0903..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Guests</label>
+                            <select class="form-control">
+                                <option>2 Guests</option>
+                                <option>4 Guests</option>
+                                <option>6+ Guests (Party)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time</label>
+                            <input type="datetime-local" class="form-control" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 20px;">Book Your Table Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-grid">
+<div>
+    <!-- Logo/Brand Name -->
+    <h2 class="premium-font" style="color: var(--gold); margin-bottom: 25px; font-size: 2.2rem; letter-spacing: -1px;">Stories Lagos</h2>
+
+    <!-- Dynamic Info Grid -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Address Row -->
+        <div style="display: flex; align-items: flex-start; gap: 15px;">
+            <div style="background: rgba(212, 175, 55, 0.1); padding: 10px; border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);">
+                <i class="ri-map-pin-2-fill" style="color: var(--gold); font-size: 1.2rem;"></i>
+            </div>
+            <div>
+                <p style="color: #fff; margin: 0; font-weight: 600; font-size: 0.95rem;">Lekki Phase I</p>
+                <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;">19 Da-Silva St, Lagos</p>
+            </div>
+        </div>
+
+        <!-- Live Status Row -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="background: rgba(46, 204, 113, 0.1); padding: 10px; border-radius: 10px; border: 1px solid rgba(46, 204, 113, 0.2);">
+                <i class="ri-time-fill" style="color: #2ECC71; font-size: 1.2rem;"></i>
+            </div>
+            <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <!-- The "Live" Pulse Dot -->
+                    <span style="height: 8px; width: 8px; background: #2ECC71; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #2ECC71; animation: pulse 2s infinite;"></span>
+                    <p style="color: #fff; margin: 0; font-weight: 600; font-size: 0.95rem;">Open Now</p>
+                </div>
+                <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;">Daily: 10:00 AM — 11:30 PM</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.7; }
+        70% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0.95); opacity: 0.7; }
+    }
+</style>
+            <div class="payment-section" style="margin-top: 30px;">
+    <p style="font-size: 0.7rem; color: var(--gold); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase;">Tap to Pay or Deposit</p>
+    
+    <!-- We wrap the icons in an anchor tag to make them clickable -->
+    <a href="https://paystack.com/pay/YOUR_PAYSTACK_LINK" target="_blank" style="text-decoration: none; display: flex; gap: 20px;">
+        <div class="payment-icons" style="font-size: 2.2rem; display: flex; gap: 20px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));">
+            <i class="ri-visa-line" style="color: #1a1f71; cursor: pointer;"></i>
+            <i class="ri-mastercard-line" style="color: #eb001b; cursor: pointer;"></i>
+            <i class="ri-bank-card-line" style="color: var(--gold); cursor: pointer;"></i>
+        </div>
+    </a>
+    
+    <p style="font-size: 0.6rem; color: #666; margin-top: 8px;">Securely processed by Paystack</p>
+</div>
+</div>
+            <div>
+                <h3 style="margin-bottom: 20px;">Quick Links</h3>
+                <ul style="color: var(--text-muted);">
+                    <li><a href="#menu">The Menu</a></li>
+                    <li><a href="#reserve">Reservations</a></li>
+                    <li><a href="https://wa.me/2349036499010">Delivery Inquiry</a></li>
+                    <li><a href="#">Private Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 20px;">Find Us</h3>
+                <div style="height: 150px; background: #222; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7303030303!2d3.46!3d6.44!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4c707de76f1%3A0x96b586a1aaa5dd61!2sStories%20Lagos!5e0!3m2!1sen!2sng!4v1715000000000" 
+    width="100%" 
+    height="100%" 
+    style="border:0; border-radius: 8px;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; color: #444; font-size: 0.8rem;">
+            © 2026 Lagos Storey Restaurant. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- EXIT INTENT POPUP -->
+    <div class="overlay" id="overlay"></div>
+    <div id="exit-popup">
+        <h2 class="premium-font" style="color: var(--gold); font-size: 2rem;">Wait! 🍹</h2>
+        <p style="margin: 15px 0;">Don't leave empty-handed. Claim a <strong>Free Signature Drink</strong> on your first visit today!</p>
+        <a href="https://wa.me/2349036499010?text=I'd%20like%20to%20claim%20my%20free%20drink" class="btn btn-gold">Claim My Free Drink</a>
+        <p onclick="closePopup()" style="margin-top: 15px; font-size: 0.8rem; text-decoration: underline; cursor: pointer;">No thanks, I'll pay full price</p>
+    </div>
+
+    <script>
+        // Exit Intent Trigger
+        const popup = document.getElementById('exit-popup');
+        const overlay = document.getElementById('overlay');
+        let popupShown = false;
+
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !popupShown) {
+                popup.classList.add('active');
+                overlay.style.display = 'block';
+                popupShown = true;
+            }
+        });
+
+        function closePopup() {
+            popup.classList.remove('active');
+            overlay.style.display = 'none';
+        }
+
+        // Handle Reservation Submission
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your reservation request has been sent! We will contact you via WhatsApp to confirm.');
+        });
+
+        // Simple Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.menu-card, .booking-container').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
